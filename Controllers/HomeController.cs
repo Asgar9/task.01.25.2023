@@ -1,5 +1,6 @@
 ﻿using Fiorello.Data;
 using Fiorello.Models;
+using Fiorello.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -23,7 +24,17 @@ namespace Fiorello.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<Slider>sliders = await _context.Sliders.Where(m=>!m.IsDeleted).ToListAsync();
-            return View(sliders);
+            SliderDetail sliderDetail = await _context.SliderDetails.Where(m => !m.IsDeleted).FirstOrDefaultAsync();
+            IEnumerable<Category> categories = await _context.Categories.Where(m => !m.IsDeleted).ToListAsync();
+
+            HomeVM model = new HomeVM 
+            { 
+             Sliders= sliders,
+             SliderDetail = sliderDetail,  
+             Categories = categories,
+            };    
+
+            return View(model);
         }
 
        

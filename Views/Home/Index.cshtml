@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Slider>
+﻿@model  HomeVM
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -11,7 +11,7 @@
 
         <section id="slider">
             <div class="owl-carousel slider">
-                @foreach (Slider slider in Model)
+                @foreach (Slider slider in Model.Sliders)
                  {
                 <div> <img src="~/img/@slider.Image" alt=""> </div>
                  }
@@ -23,13 +23,11 @@
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="text">
-                            <h1>Send <span>flowers</span> like</h1>
-                            <h1>you mean it</h1>
-                            <p class="text-black-50 d-none d-sm-block">Where flowers are our inspiration to create lasting memories. Whatever the occasion, our flowers will
-                                make it special cursus a sit amet mauris. </p>
+                            @Html.Raw(Model.SliderDetail.Title)
+                            <p class="text-black-50 d-none d-sm-block">@Model.SliderDetail.Description </p>
                         </div>
                         <div class="img">
-                            <img src="~/img/h2-sign-img.png" alt="">
+                            <img src="~/img/@Model.SliderDetail.Signature" alt="">
                         </div>
                     </div>
                 </div>
@@ -50,23 +48,20 @@
                                 <i class="fas fa-caret-down"></i>
                                 <ul class="category list-unstyled" style="display: none;">
                                     <li><a href="" data-id="all">All</a></li>
-                                    <li><a href="" data-id="popular">Popular</a></li>
-                                    <li><a href="" data-id="winter">Winter</a></li>
-                                    <li><a href="" data-id="various">Various</a></li>
-                                    <li><a href="" data-id="exotic">Exotic</a></li>
-                                    <li><a href="" data-id="green">Greens</a></li>
-                                    <li><a href="" data-id="cactuse">Cactuses</a></li>
-                                </ul>
+                                    
+                                @foreach (Category category in Model.Categories)
+                                {
+                                    <li><a href="" data-id="popular">@category.Name</a></li>
+                                }
+                            </ul>
                             </li>
                         </ul>
                         <ul class="category d-none d-md-flex list-unstyled">
                             <li><a href="" data-id="all">All</a></li>
-                            <li><a href="" data-id="popular">Popular</a></li>
-                            <li><a href="" data-id="winter">Winter</a></li>
-                            <li><a href="" data-id="various">Various</a></li>
-                            <li><a href="" data-id="exotic">Exotic</a></li>
-                            <li><a href="" data-id="green">Greens</a></li>
-                            <li><a href="" data-id="cactuse">Cactuses</a></li>
+                               @foreach (Category category in Model.Categories)
+                                {
+                                    <li><a href="" data-id="popular">@category.Name</a></li>
+                                }
                         </ul>
                         <ul class="list-unstyled">
                             <li>
